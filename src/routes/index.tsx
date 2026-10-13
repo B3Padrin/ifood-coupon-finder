@@ -45,22 +45,35 @@ const sampleCoupons = [
 ];
 
 const demoOffers = [
-  {name:"4 Big Macs — McDonald's",price:"R$ 99,90",image:"/images/offers/big-mac.webp",alt:"Fotografia de 4 Big Macs — McDonald's; arquivo sujeito a autorização de uso"},
-  {name:"2 Whoppers + batatas — Burger King",price:"R$ 49,90",image:"/images/offers/whopper.webp",alt:"Fotografia de 2 Whoppers + batatas — Burger King; arquivo sujeito a autorização de uso"},
-  {name:"2 sanduíches de 30 cm — Subway",price:"R$ 39,90",image:"/images/offers/subway.webp",alt:"Fotografia de 2 sanduíches de 30 cm — Subway; arquivo sujeito a autorização de uso"},
-  {name:"3 cheeseburgers + batata — McDonald\'s",price:"R$ 34,90",image:"/images/offers/cheeseburgers.webp",alt:"Fotografia de 3 cheeseburgers + batata; arquivo sujeito a autorização de uso"},
-  {name:"2 brownies com sorvete — Stonia Ice",price:"R$ 24,90",image:"/images/offers/brownie.webp",alt:"Fotografia de 2 brownies com sorvete; arquivo sujeito a autorização de uso"},
-  {name:"4 churros recheados — A Casa do Churro",price:"R$ 19,90",image:"/images/offers/churros.webp",alt:"Fotografia de 4 churros recheados; arquivo sujeito a autorização de uso"},
-  {name:"2 milk-shakes de 400 ml — Burger King",price:"R$ 24,90",image:"/images/offers/milkshake-chocolate.webp",alt:"Fotografia de 2 milk-shakes de 500 ml; arquivo sujeito a autorização de uso"},
-  {name:"3 milk-shakes de morango 400 ml — McDonald\'s",price:"R$ 34,90",image:"/images/offers/milkshake-morango.webp",alt:"Fotografia de 3 milk-shakes de morango; arquivo sujeito a autorização de uso"},
-  {name:"2 açaís de 500 ml — The Best Açaí",price:"R$ 29,90",image:"/images/offers/acai.webp",alt:"Fotografia de 2 açaís de 500 ml; arquivo sujeito a autorização de uso"},
-  {name:"Pizza grande + refrigerante 2 L — Domino\'s",price:"R$ 34,90",image:"/images/offers/pizza-refrigerante.webp",alt:"Fotografia de Pizza grande + refrigerante 2 L; arquivo sujeito a autorização de uso"},
-  {name:"2 pizzas grandes — Domino\'s",price:"R$ 59,90",image:"/images/offers/duas-pizzas.webp",alt:"Fotografia de 2 pizzas grandes; arquivo sujeito a autorização de uso"},
-  {name:"2 cachorro-quentes completos — Dog do Juninho",price:"R$ 24,90",image:"/images/offers/cachorro-quente.webp",alt:"Fotografia de 2 cachorro-quentes completos; arquivo sujeito a autorização de uso"},
+  {name:"4 Big Macs — McDonald's",price:"R$ 99,90",image:"/images/offers/big-mac.webp",alt:"4 Big Macs — McDonald's"},
+  {name:"2 Whoppers + batatas — Burger King",price:"R$ 49,90",image:"/images/offers/whopper.webp",alt:"2 Whoppers + batatas — Burger King"},
+  {name:"2 sanduíches de 30 cm — Subway",price:"R$ 39,90",image:"/images/offers/subway.webp",alt:"2 sanduíches de 30 cm — Subway"},
+  {name:"3 cheeseburgers + batata — McDonald\'s",price:"R$ 34,90",image:"/images/offers/cheeseburgers.webp",alt:"3 cheeseburgers + batata"},
+  {name:"2 brownies com sorvete — Stonia Ice",price:"R$ 24,90",image:"/images/offers/brownie.webp",alt:"2 brownies com sorvete"},
+  {name:"4 churros recheados — A Casa do Churro",price:"R$ 19,90",image:"/images/offers/churros.webp",alt:"4 churros recheados"},
+  {name:"2 milk-shakes de 400 ml — Burger King",price:"R$ 24,90",image:"/images/offers/milkshake-chocolate.webp",alt:"2 milk-shakes de 500 ml"},
+  {name:"3 milk-shakes de morango 400 ml — McDonald\'s",price:"R$ 34,90",image:"/images/offers/milkshake-morango.webp",alt:"3 milk-shakes de morango"},
+  {name:"2 açaís de 500 ml — The Best Açaí",price:"R$ 29,90",image:"/images/offers/acai.webp",alt:"2 açaís de 500 ml"},
+  {name:"Pizza grande + refrigerante 2 L — Domino\'s",price:"R$ 34,90",image:"/images/offers/pizza-refrigerante.webp",alt:"Pizza grande + refrigerante 2 L"},
+  {name:"2 pizzas grandes — Domino\'s",price:"R$ 59,90",image:"/images/offers/duas-pizzas.webp",alt:"2 pizzas grandes"},
+  {name:"2 cachorro-quentes completos — Dog do Juninho",price:"R$ 24,90",image:"/images/offers/cachorro-quente.webp",alt:"2 cachorro-quentes completos"},
 ] as const;
 
 // Add filenames here only after a licensed photograph is committed and verified.
-const verifiedOfferImages: readonly string[] = [];
+const verifiedOfferImages: readonly string[] = [
+  "/images/offers/big-mac.webp",
+  "/images/offers/whopper.webp",
+  "/images/offers/subway.webp",
+  "/images/offers/cheeseburgers.webp",
+  "/images/offers/brownie.webp",
+  "/images/offers/churros.webp",
+  "/images/offers/milkshake-chocolate.webp",
+  "/images/offers/milkshake-morango.webp",
+  "/images/offers/acai.webp",
+  "/images/offers/pizza-refrigerante.webp",
+  "/images/offers/duas-pizzas.webp",
+  "/images/offers/cachorro-quente.webp",
+];
 
 function OfferPhoto({src,alt}:{src:string;alt:string}) {
  const [failed,setFailed]=useState(false);
