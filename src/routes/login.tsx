@@ -1,11 +1,11 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, TicketPercent, LoaderCircle } from "lucide-react";
 import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({ component: Login });
 function Login() {
- const [email,setEmail]=useState(""); const [loading,setLoading]=useState(false); const [notice,setNotice]=useState(""); const navigate=useNavigate();
+ const [email,setEmail]=useState(""); const [loading,setLoading]=useState(false); const [notice,setNotice]=useState(""); 
  async function signIn(e:React.FormEvent){e.preventDefault();setLoading(true);setNotice("");try{
  const {error}=await supabase.auth.signInWithOtp({email:email.trim().toLowerCase(),options:{emailRedirectTo:window.location.origin+"/membros",shouldCreateUser:true}});
  if(error) throw error;setNotice("Enviamos um link de acesso para seu e-mail. Verifique também a pasta de spam.");
