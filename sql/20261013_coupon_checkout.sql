@@ -24,3 +24,15 @@ ALTER TABLE public.coupon_memberships ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON public.coupon_orders FROM anon, authenticated;
 REVOKE ALL ON public.coupon_memberships FROM anon, authenticated;
 -- O servidor acessa as tabelas via conexão Postgres privada; nunca expor DATABASE_URL ao browser.
+
+CREATE TABLE IF NOT EXISTS public.coupon_webhook_events (
+ transaction_id text NOT NULL,
+ status text NOT NULL,
+ payload jsonb NOT NULL,
+ outcome text,
+ processed_at timestamptz,
+ received_at timestamptz NOT NULL DEFAULT now(),
+ PRIMARY KEY(transaction_id,status)
+);
+ALTER TABLE public.coupon_webhook_events ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON public.coupon_webhook_events FROM anon, authenticated;
