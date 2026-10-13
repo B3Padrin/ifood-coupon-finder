@@ -1,0 +1,10 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { supabase } from "../integrations/supabase/client";
+export const Route = createFileRoute("/redefinir-senha")({component:ResetPassword});
+function ResetPassword(){
+ const [password,setPassword]=useState("");const [ready,setReady]=useState(false);const [busy,setBusy]=useState(false);const [notice,setNotice]=useState("");
+ useEffect(()=>{let alive=true;const {data:{subscription}}=supabase.auth.onAuthStateChange((event)=>{if(alive&&event==="PASSWORD_RECOVERY")setReady(true)});void supabase.auth.getSession().then(({data})=>{if(alive&&data.session)setReady(true)});return()=>{alive=false;subscription.unsubscribe()}},[]);
+ async function save(e:React.FormEvent){e.preventDefault();if(password.length<8)return;setBusy(true);const {error}=await supabase.auth.updateUser({password});setNotice(error?"Não foi possível alterar sua senha. Solicite um novo link de recuperação.":"Senha atualizada. Você já pode acessar sua conta.");setBusy(false)}
+ return <main className="flex min-h-screen items-center justify-center bg-slate-50 px-5"><section className="w-full max-w-md rounded-3xl bg-white p-8 shadow-sm"><h1 className="text-2xl font-black">Redefinir senha</h1><p className="mt-3 text-sm text-slate-600">Use o link de recuperação recebido no seu e-mail para definir uma nova senha.</p>{ready?<form onSubmit={save} className="mt-6 space-y-4"><label className="block text-sm font-bold">Nova senha<input type="password" required minLength={8} autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} className="mt-2 min-h-12 w-full rounded-xl border px-4"/></label><button disabled={busy} className="min-h-12 w-full rounded-xl bg-red-600 font-bold text-white">{busy?"Salvando…":"Salvar nova senha"}</button></form>:<p className="mt-6 rounded-xl bg-amber-50 p-4 text-sm">Abra o link enviado por e-mail para autorizar a recuperação.</p>}{notice&&<p role="status" className="mt-4 text-sm">{notice}</p>}<Link to="/login" className="mt-6 inline-block font-bold text-red-600">Voltar ao login</Link></section></main>
+}
