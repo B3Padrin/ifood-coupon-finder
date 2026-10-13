@@ -1,11 +1,11 @@
 // Configuração lida apenas no servidor, sempre dentro de handlers.
 export type ServerConfig = {
   checkoutEnabled: boolean;
-  veopagClientId?: string;
-  veopagClientSecret?: string;
-  webhookSignature?: string;
-  callbackToken?: string;
-  appBaseUrl?: string;
+  veopagClientId?: string | undefined;
+  veopagClientSecret?: string | undefined;
+  webhookSignature?: string | undefined;
+  callbackToken?: string | undefined;
+  appBaseUrl?: string | undefined;
   missing: string[];
 };
 

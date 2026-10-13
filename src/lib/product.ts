@@ -15,7 +15,8 @@ export const orderExternalId = (orderId: string) => `order-${orderId}`;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export function orderIdFromExternalId(externalId: string): string | null {
   const m = /^order-(.+)$/.exec(externalId);
-  return m && UUID.test(m[1]) ? m[1].toLowerCase() : null;
+  const id = m?.[1];
+  return id && UUID.test(id) ? id.toLowerCase() : null;
 }
 
 /** expires_at = starts_at + 30 dias corridos (espelha a regra SQL). */

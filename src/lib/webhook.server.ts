@@ -27,7 +27,7 @@ export function verifySignature(opts: {
 
 export function verifyCallbackToken(header: string | null, token: string) {
   const m = /^Bearer (\S+)$/.exec(header ?? "");
-  return !!m && safeEq(m[1], token);
+  return !!m?.[1] && safeEq(m[1], token);
 }
 
 export const depositEventSchema = z
