@@ -9,8 +9,8 @@ export const Route=createFileRoute("/api/veopag-webhook")({server:{handlers:{POS
  try{
  const result=await handleVeopagWebhook({rawBody:await request.text(),headers:request.headers},{
  secret:cfg.webhookSignature!,callbackToken:cfg.callbackToken,nowSec:Math.floor(Date.now()/1000),
- recordEvent:async()=> "new",
- markProcessed:async()=>{},
+ recordEvent:async(txId,status,payload)=>{const rows=await sql`INSERT INTO public.coupon_webhook_events(transaction_id,status,payload) VALUES (${txId},${status},${sql.json(payload as object)}) ON CONFLICT DO NOTHING RETURNING transaction_id`;if(rows.length)return "new";const old=await sql`SELECT processed_at FROM public.coupon_webhook_events WHERE transaction_id=${txId} AND status=${status}`;return old[0]?.processed_at?"processed":"new"},
+ markProcessed:async(txId,status,outcome)=>{await sql`UPDATE public.coupon_webhook_events SET outcome=${outcome},processed_at=now() WHERE transaction_id=${txId} AND status=${status}`},
  findOrder:async id=>{const rows=await sql`SELECT id,amount_cents,status FROM public.coupon_orders WHERE id=${id}`;return rows[0] as {id:string;amount_cents:number;status:string}|undefined??null},
  confirm:async id=>{const updated=await reconcileOrder(id);return updated?.status==="COMPLETED"?"ok":"pending"},
  fail:async id=>{await sql`UPDATE public.coupon_orders SET status='FAILED' WHERE id=${id} AND status='PENDING'`;return "ok"},
