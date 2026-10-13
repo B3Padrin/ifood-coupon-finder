@@ -14,13 +14,225 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      coupons: {
+        Row: {
+          active: boolean
+          code: string | null
+          created_at: string
+          description: string
+          discount_type: string
+          discount_value: number
+          id: string
+          terms: string
+          title: string
+          valid_until: string | null
+        }
+        Insert: {
+          active?: boolean
+          code?: string | null
+          created_at?: string
+          description?: string
+          discount_type: string
+          discount_value?: number
+          id?: string
+          terms?: string
+          title: string
+          valid_until?: string | null
+        }
+        Update: {
+          active?: boolean
+          code?: string | null
+          created_at?: string
+          description?: string
+          discount_type?: string
+          discount_value?: number
+          id?: string
+          terms?: string
+          title?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
+      memberships: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          order_id: string
+          starts_at: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          order_id: string
+          starts_at: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          order_id?: string
+          starts_at?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "memberships_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          external_id: string
+          gateway_transaction_id: string | null
+          id: string
+          paid_at: string | null
+          pix_qrcode: string | null
+          product_id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          currency?: string
+          external_id: string
+          gateway_transaction_id?: string | null
+          id?: string
+          paid_at?: string | null
+          pix_qrcode?: string | null
+          product_id: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          external_id?: string
+          gateway_transaction_id?: string | null
+          id?: string
+          paid_at?: string | null
+          pix_qrcode?: string | null
+          product_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      rate_limits: {
+        Row: {
+          hits: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          hits?: number
+          key: string
+          window_start: string
+        }
+        Update: {
+          hits?: number
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
+      webhook_events: {
+        Row: {
+          event_status: string
+          id: string
+          outcome: string | null
+          payload: Json
+          processed_at: string | null
+          received_at: string
+          transaction_id: string
+        }
+        Insert: {
+          event_status: string
+          id?: string
+          outcome?: string | null
+          payload: Json
+          processed_at?: string | null
+          received_at?: string
+          transaction_id: string
+        }
+        Update: {
+          event_status?: string
+          id?: string
+          outcome?: string | null
+          payload?: Json
+          processed_at?: string | null
+          received_at?: string
+          transaction_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      confirm_order_payment: {
+        Args: {
+          _amount_cents: number
+          _order_id: string
+          _transaction_id: string
+        }
+        Returns: string
+      }
+      fail_order: { Args: { _order_id: string }; Returns: string }
+      has_active_membership: { Args: { _user_id: string }; Returns: boolean }
+      rate_limit_hit: {
+        Args: { _key: string; _max: number; _window_seconds: number }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
