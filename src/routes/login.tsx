@@ -1,0 +1,3 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+export const Route = createFileRoute("/login")({component:Login});
+function Login(){return <main className="flex min-h-screen items-center justify-center bg-slate-50 px-5"><section className="max-w-md rounded-3xl border bg-white p-8 text-center shadow-sm"><h1 className="text-3xl font-black">Área de membros</h1><p className="mt-4 text-slate-600">O acesso à plataforma está em preparação. O login será liberado após a implantação da autenticação.</p><Link to="/" className="mt-7 inline-block font-bold text-red-600">Voltar ao início</Link></section></main>}
